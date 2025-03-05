@@ -1,0 +1,133 @@
+---
+title: "Otimizando a criação de Tabelas em LaTeX"
+author: "Vinícius Oviedo"
+lang: pt-br
+toc: true
+---
+
+## Ferramentas
+
+Certamente, existem ferramentas que nos auxiliam a otimizar a criação de tabelas em LaTeX. Alguns exemplos são:
+
+1. [**LaTeX tables generator**](https://www.tablesgenerator.com/)
+2. [Table Convert](https://tableconvert.com/latex-generator)
+3. Plugins do MS Excel (e.g., [`Excel2LaTeX`](https://ctan.org/pkg/excel2latex?lang=en))
+4. Python (o pacote `pandas` tem suporte para `TeX`)
+
+Essas ferramentas são incríveis, porém, elas não fazem todo o trabalho. Normalmente, dependendo da complexidade da tabela,
+é preciso implementar alguns ajustes. Por esse motivo, é interessante entender o básico sobre a estrutura de tabelas em LaTeX. 
+Segue o processo que utilizei/utilizo ao longo tempo trabalhando com tabelas em LaTeX:
+
+![](C:\Users\vinic\Documents\LaTeX-tables\Conteudo-LaTeX-tables\assets\processo-criar-tabela.png){width=100%}
+
+## Exemplo (LaTeX tables generator)
+
+Reproduza a tabela a seguir, fazendo uso de ferramentas auxiliares:
+
+![](C:\Users\vinic\Documents\LaTeX-tables\Conteudo-LaTeX-tables\assets\LaTeXtablesGen.png){width=70%}
+
+
+## Exemplo com Python
+
+Para esse exemplo, vamos utilizar o Google Colab. Vamos partir de um arquivo `.csv` e também de uma tabela da web (em `html`). 
+Ao final, teremos duas tabelas em LaTeX de maneira prática e rápida.
+
+### 1. Arquivo csv
+
+Suponha que você tenha o seguinte arquivo `csv` (separado por vírgulas):
+
+```{python}
+%%writefile ordens.csv
+Pedido;Produto;Valor Venda;Quantidade Vendida;Custo Envio
+CA-2012-124891;TEC-AC-10003033;2309,65;7;933,57
+IN-2013-77878;FUR-CH-10003950;3,709,395;9;923,63
+IN-2013-71249;TEC-PH-10004664;5,175,171;9;915,49
+ES-2013-1579342;TEC-PH-10004583;2892,51;5;910,16
+SG-2013-4320;TEC-SHA-10000501;2832,96;8;903,04
+IN-2013-42360;TEC-PH-10000030;2,862,675;5;897,35
+IN-2011-81826;FUR-CH-10004050;1822,08;4;894,77
+IN-2012-86369;FUR-TA-10002958;5244,84;6;878,38
+CA-2014-135909;OFF-BI-10003527;5083,96;5;867,69
+```
+
+Podemos utilizar a biblioteca `Pandas` para ler essa tabela:
+
+```{python}
+# biblioteca:
+import pandas as pd
+
+# lendo a tabela:
+dados = pd.read_csv("ordens.csv", sep=";")
+# resultado:
+dados
+```
+
+Com isso, podemos obter o código em LaTeX pelo método `to_latex()`.
+
+```python
+dados.to_latex(index=False, caption='Legenda da tabela', label='tab:vendas')
+```
+
+::: {.callout-note title="Documentação"}
+A documentação do método `to_latex()`pode ser encontrada [aqui](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.to_latex.html#).
+:::
+
+
+Isso produz a saída em LaTeX:
+
+```LaTeX
+\begin{table}
+\centering % adicionado manualmente
+\caption{Legenda da tabela}
+\label{tab:vendas}
+\begin{tabular}{lllrl}
+\toprule
+Pedido & Produto & Valor Venda & Quantidade Vendida & Custo Envio \\
+\midrule
+CA-2012-124891 & TEC-AC-10003033 & 2309,65 & 7 & 933,57 \\
+IN-2013-77878 & FUR-CH-10003950 & 3,709,395 & 9 & 923,63 \\
+IN-2013-71249 & TEC-PH-10004664 & 5,175,171 & 9 & 915,49 \\
+ES-2013-1579342 & TEC-PH-10004583 & 2892,51 & 5 & 910,16 \\
+SG-2013-4320 & TEC-SHA-10000501 & 2832,96 & 8 & 903,04 \\
+IN-2013-42360 & TEC-PH-10000030 & 2,862,675 & 5 & 897,35 \\
+IN-2011-81826 & FUR-CH-10004050 & 1822,08 & 4 & 894,77 \\
+IN-2012-86369 & FUR-TA-10002958 & 5244,84 & 6 & 878,38 \\
+CA-2014-135909 & OFF-BI-10003527 & 5083,96 & 5 & 867,69 \\
+\bottomrule
+\end{tabular}
+\end{table}
+```
+
+### 2. Tabela html (da web)
+
+```{python}
+wikipedia = pd.read_html("https://pt.wikipedia.org/wiki/Lista_de_unidades_federativas_do_Brasil_por_popula%C3%A7%C3%A3o")
+wikipedia = wikipedia[2]
+wikipedia = wikipedia[['Região', 'População (Estimativa 2024)']]
+wikipedia
+```
+
+```python
+wikipedia.to_latex(index=False, caption='População BR por região', label='tab:populacao')
+```
+
+Isso produz a saída em LaTeX:
+
+```LaTeX
+\begin{table}
+\centering % adicionado manualmente
+\caption{População BR por região}
+\label{tab:populacao}
+\begin{tabular}{ll}
+\toprule
+Região & População (Estimativa 2024) \\
+\midrule
+Região Sudeste & 88.617.693 \\
+Região Nordeste & 57.112.096 \\
+Região Sul & 31.113.021 \\
+Região Norte & 18.669.345 \\
+Região Centro-Oeste & 17.071.595 \\
+\bottomrule
+\end{tabular}
+\end{table}
+```

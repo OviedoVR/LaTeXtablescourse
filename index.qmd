@@ -1,0 +1,13 @@
+---
+title: "Portfolio de Análise de Dados"
+author: "Vinícius Oviedo"
+lang: pt-br
+---
+
+Bem-vindo ao meu portfolio de Análise de Dados. Nesta página, você encontrará os seguintes projetos:
+
+::: {.callout-note title="Nota"}
+Você pode acessá-los por meio da guia de navegação no topo da página.
+:::
+
+> Desenvolvido com Quarto markdown (mais detalhes em <https://quarto.org/docs/websites>).

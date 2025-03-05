@@ -1,0 +1,156 @@
+---
+title: "Tabelas em LaTeX"
+author: "Vinícius Oviedo"
+lang: pt-br
+toc: true
+---
+
+## Noções básicas
+
+As tabelas em LaTeX compreendem dois ambientes, o ambiente `table` e o ambiente `tabular`. Vale notar que:
+
+- `table`: ambiente principal onde são configurados posicionamento, centralização, legenda e rótulo (para referência cruzada)
+- `tabular`: armazena o conteúdo da tabela. 
+- `&`:  separa cada coluna 
+- `\\` (backslash duplo): nova linha. 
+
+Assim, temos genericamente:
+
+```LaTeX
+\begin{table}[] % posição
+    \centering  % centraliza a tabela
+    % -- conteúdo da tabela:
+    \begin{tabular}{c|c} 
+         &  \\
+         & 
+    \end{tabular}
+    % -- fim do conteúdo da tabela:
+    \caption{Caption} % legenda
+    \label{tab:my_label} % rótulo para referência cruzada
+\end{table}
+```
+
+## Exemplo
+
+Por exemplo, caso se queira produzir a tabela abaixo com LaTeX,
+
+![](C:\Users\vinic\Documents\LaTeX-tables\Conteudo-LaTeX-tables\assets\ligas-e-densidade.png){width=40%}
+
+Utilizamos o seguinte bloco de código:
+
+```LaTeX
+\begin{table}[!ht]
+    \centering
+    %\caption{Gravidades específicas de algumas ligas metálicas utilizadas como implantes.}
+    \begin{tabular}{l r}
+    \hline
+    Ligas & Densidade ($g/cm^3$) \\ \hline
+    Ti a suas ligas & 4.5 \\
+    Aço inoxidável 316 & 7.9 \\
+    CoCrMo & 8.3 \\
+    CoNiCrMo & 9.2 \\
+    NiTi & 6.7 \\ \hline
+    \end{tabular}
+\end{table}
+```
+
+## Opções
+
+Opções para a tabela:
+
+- Posicionamento da tabela: **h** (here), **t** (top) ou **b** (bottom) 
+- Alinhamento das colunas: **l**, **c** ou **r**
+- Coluna com dimensão especificada: `p{medida}` (e.g., `p{2cm}`)
+- Com o pacote `array`, é possível utilizar o `m{medida}`
+- **Linhas horizontais**: `\hline`, `\cline{i-j}`
+- **Linhas horizontais** com `booktabs`: `toprule`, `midrule`, `bottomrule`, `\cmidrule{i-j}`, `\midrule[2pt]`
+- **Linhas verticiais**: | (junto com o alinhamento das colunas)
+
+
+## Referência cruzada
+
+Para referenciar no texto:
+
+Podemos usar o comando `Tabela \ref{tab:rotulo}`, que vai retornar "Tabela **n**" (com o número atualizado da tabela).
+
+
+## Células mescladas
+
+Para utilizar células mescladas, utilizamos os pacotes `multicol` e `multirow`. Nesse caso, temos duas opções:
+
+- `Multicolumn`: colunas mescladas
+- `Multirow`: linhas mescladas.
+
+Como sintaxe, temos:
+
+> Multicolumn:
+
+```LaTeX
+%\multicolumn{num_colunas}{alinhamento}{conteúdo}
+\multicolumn{3}{c}{conteúdo}
+```
+
+> Multirow:
+
+```LaTeX
+%\multirow{num_linhas}{largura}{conteúdo}
+\multirow{3}{*}{conteúdo} % * indica largura padrão
+% outra opção:
+\multirow{3}{2em}{conteúdo}
+```
+
+> Exemplo completo:
+
+```LaTeX
+\documentclass[a4paper,12pt]{article} % classe
+\usepackage[utf8]{inputenc} % codificação
+\usepackage[brazil]{babel} % idioma
+\usepackage[margin=2cm]{geometry} % margens
+\usepackage{times} % fonte
+\usepackage{setspace} % pacote espaçamento
+\onehalfspacing % espaçamento 1.5
+\setlength{\parindent}{0pt} % indentação parágrafos
+\setlength{\parskip}{8pt} % espaçamento entre parágrafos 
+\renewcommand{\arraystretch}{1.5} % espaçamento 1.5 nas tabelas
+\usepackage{multirow}
+
+\begin{document}
+
+
+\section*{Multicol}
+
+\begin{table}[!ht]
+\centering
+\begin{tabular}{ccc}
+    \hline
+    \textbf{Grupo} & \multicolumn{2}{c}{\textbf{Notas}} \\ \cline{2-3}
+    & \textbf{Prova 1} & \textbf{Prova 2} \\ \hline
+    A & 8.5 & 7.0 \\ 
+    B & 6.0 & 9.0 \\
+    C & 7.5 & 8.0 \\ \hline
+\end{tabular}
+\end{table}
+
+\section*{Multirow}
+
+\begin{table}[!ht]
+\centering
+\begin{tabular}{ccc}
+    \hline
+    \textbf{Departamento} & \textbf{Funcionário} & \textbf{Salário} \\ \hline
+    \multirow{2}{*}{Marketing} & João & 3400 \\ 
+     & Maria & 3600 \\ \hline
+    \multirow{2}{*}{TI} & Carlos & 12000 \\ 
+     & Ana & 8000  \\ \hline
+\end{tabular}
+\end{table}
+
+\end{document}
+```
+
+![](C:\Users\vinic\Documents\LaTeX-tables\Conteudo-LaTeX-tables\assets\merged.png){width=70%}
+
+
+::: {.callout-note title="Recurso online (Overleaf)"}
+Artigo de blog sobre [**LaTeX tables**](https://www.overleaf.com/learn/latex/Tables).
+:::

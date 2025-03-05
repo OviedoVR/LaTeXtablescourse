@@ -1,0 +1,26 @@
+project:
+  type: website
+  output-dir: docs
+
+website:
+  title: ""
+  navbar:
+    left:
+      - href: index.qmd
+        text: Página Inicial
+      - text: Conteúdos
+        menu:       
+        - href: contents/nocoes_bascias.qmd
+          text: Noções básicas
+        - href: contents/otimizando.qmd
+          text: Ferramentas auxiliares      
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+    toc: false
+    code-fold: false
+    code-block-bg: true
+    code-block-border-left: false
+    code-line-numbers: false
+    highlight-style: haddock
