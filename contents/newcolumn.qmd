@@ -5,6 +5,31 @@ lang: pt-br
 toc: true
 ---
 
-## Ferramentas
+## Newcolumntype
 
-Certamente, existem ferramentas que nos auxiliam a otimizar a criação de tabelas em LaTeX. Alguns exemplos são:
+Existem situações em que precisamos de uma coluna com dimensão especificada (`p{medida}`), porém, combinada a um alinhamento 
+à esquerda ou à direita. Para isso, podemos utilizar os pacotes abaixo.
+
+```LaTeX
+\usepackage{array}
+\usepackage{ragged2e}
+```
+
+Dessa maneira, a sintaxe para o comando \newcolumntype é:
+
+```LaTeX
+\newcolumntype{caracter}[n]{definição da coluna}
+```
+
+Assim podemos criar, no preâmbulo:
+
+```LaTeX
+% Coluna alinha ao centro (dimensão especificada):
+\newcolumntype{C}[1]{>{\centering\arraybackslash}m{#1}} 
+
+% Coluna alinha à esquerda (dimensão especificada):
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}m{#1}}
+
+% Coluna alinha à direita (dimensão especificada):
+\newcolumntype{R}[1]{>{\raggedleft\arraybackslash}m{#1}}
+```

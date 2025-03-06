@@ -1,0 +1,177 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Descomplicando Tabelas em LaTeX",
+    "section": "",
+    "text": "Bem-vindo ao curso Descomplicando Tabelas em LaTeX. Nesta página, você encontrará os seguintes tópicos:\n\n\n\n\n\n\nNota\n\n\n\nVocê pode acessá-los por meio da guia de navegação no topo da página.\n\n\n\nNoções básicas\nFerramentas auxiliares\nComando \\parbox\nNovas colunas\nNotas em tabelas\nCustomização da legenda\nLongtable e \\ContinuedFloat\nCélulas rotacionadas e diagbox\nQuadros e lista de quadros (ABNT)\n\n\nDesenvolvido com Quarto markdown (mais detalhes em https://quarto.org/docs/websites)."
+  },
+  {
+    "objectID": "contents/quadro.html",
+    "href": "contents/quadro.html",
+    "title": "Quadros em LaTeX (ABNT)",
+    "section": "",
+    "text": "Quadros\nDe acordo com a ABNT, quando a tabela apresenta bordas verticiais, chamamos ela de quadro. Logo, precisaremos criar um novo tipo float para essa situação. Isso pode ser configurado no preâmbulo:\n% Definir um novo tipo de float chamado 'quadro'\n\\usepackage{float} % pacote base\n\\floatstyle{plaintop}\n\\newfloat{quadro}{!ht}{lop}\n\\floatname{quadro}{Quadro}\nPara criar uma lista de quadros (análogo à lista de figuras), podemos utilizar, também no preâmbulo:\n% Configurar a lista de quadros\n\\newcommand{\\listofquadros}{\n  \\listof{quadro}{Lista de Quadros}\n}\nAgora podemos utilizar o quadro da seguinte maneira.\n\\begin{quadro}[!ht]\n\\caption{Exemplo de quadro.}\n\\centering\n\\begin{tabular}{|c|c|c|}\n\\hline\n\\textbf{Coluna 1} & \\textbf{Coluna 2} & \\textbf{Coluna 3} \\\\\n\\hline\n1 & 2 & 3 \\\\\n\\hline\n4 & 5 & 6 \\\\\n\\hline\n7 & 8 & 9 \\\\\n\\hline\n\\end{tabular}\n\\end{quadro}\n\nExemplo completo\n\\documentclass[a4paper,12pt]{article} % classe\n\\usepackage[utf8]{inputenc} % codificação\n\\usepackage[brazil]{babel} % idioma\n\\usepackage[margin=2cm]{geometry} % margens\n\\usepackage{times} % fonte\n\\usepackage{setspace} % pacote espaçamento\n\\onehalfspacing % espaçamento 1.5\n\\setlength{\\parindent}{0pt} % indentação parágrafos\n\\setlength{\\parskip}{8pt} % espaçamento entre parágrafos \n\\renewcommand{\\arraystretch}{1.5} % espaçamento 1.5 nas tabelas\n\\usepackage{float}\n% Definir um novo tipo de float chamado 'quadro'\n\\floatstyle{plaintop}\n\\newfloat{quadro}{!ht}{lop}\n\\floatname{quadro}{Quadro}\n% Configurar a lista de quadros\n\\newcommand{\\listofquadros}{\n  \\listof{quadro}{Lista de Quadros}\n}\n\\usepackage{lipsum}\n\n\\begin{document}\n\n\n\\listofquadros % lista de quadros\n\\clearpage     % qubra de página\n\n\\section*{Exemplo}\n\n% Parágrafo 2 do lipsum:\n\\lipsum[2] Quadro \\ref{quadro2}\n\n% Quadro 1:\n\\begin{quadro}[!ht]\n\\caption{Exemplo de quadro.}\n\\centering\n\\begin{tabular}{|c|c|c|}\n\\hline\n\\textbf{Coluna 1} & \\textbf{Coluna 2} & \\textbf{Coluna 3} \\\\\n\\hline\n1 & 2 & 3 \\\\\n\\hline\n4 & 5 & 6 \\\\\n\\hline\n7 & 8 & 9 \\\\\n\\hline\n\\end{tabular}\n\\end{quadro}\n\n% Parágrafo 3 do \"lipsum\":\n\\lipsum[3] Conforme ilustrado no quadro \\ref{quadro2}, ...\n\n% Quadro 2:\n\\begin{quadro}[!ht]\n\\caption{Outro exemplo de quadro.}\n\\label{quadro2}\n\\centering\n\\begin{tabular}{|c|c|c|}\n\\hline\n\\textbf{Coluna 1} & \\textbf{Coluna 2} & \\textbf{Coluna 3} \\\\\n\\hline\n1 & 2 & 3 \\\\\n\\hline\n4 & 5 & 6 \\\\\n\\hline\n7 & 8 & 9 \\\\\n\\hline\n\\end{tabular}\n\\end{quadro}\n\n\n\\end{document}"
+  },
+  {
+    "objectID": "contents/pandas_e_latex.html",
+    "href": "contents/pandas_e_latex.html",
+    "title": "Integrando Pandas e LaTeX",
+    "section": "",
+    "text": "Certamente, existem ferramentas que nos auxiliam a otimizar a criação de tabelas em LaTeX. Alguns exemplos são:"
+  },
+  {
+    "objectID": "contents/pandas_e_latex.html#ferramentas",
+    "href": "contents/pandas_e_latex.html#ferramentas",
+    "title": "Integrando Pandas e LaTeX",
+    "section": "",
+    "text": "Certamente, existem ferramentas que nos auxiliam a otimizar a criação de tabelas em LaTeX. Alguns exemplos são:"
+  },
+  {
+    "objectID": "contents/notas.html",
+    "href": "contents/notas.html",
+    "title": "Notas em tabelas LaTeX",
+    "section": "",
+    "text": "Trabalhando com tabelas em LaTeX, usualmente nos encontramos em situações onde se faz necessário adicionar notas de rodapé em uma tabela. Durante minha caminhada com LaTeX, me deparei com três métodos:\n\nTexto após o tabular;\nVia multicolumn;\nPacote threeparttable.\n\nA seguir, veremos como implementar cada método.\n\n\nO método consiste em adicionar uma quebra de linha (\\\\) após o ambiente tabular. É útil quando a nota irá ocupar apenas uma linha.\n\\begin{table}\n% centralização, caption e label\n  \\begin{tabular}{}\n    % conteúdo da tabela\n  \\end{tabular} \\\\\n  NOTA DE RODAPÉ AQUI\n\\end{table}\n\nExemplo:\n\n\\begin{table}[!ht]\n  \\centering\n  \\caption{Tabela exemplo (método 1)}\n  % corpo da tabela\n  \\begin{tabular}{ p{2.5cm} p{2cm} p{2.75cm} }\n    \\toprule\n    \\textbf{ID ordem} & \\textbf{Itens} & \\textbf{Receita (R\\$)} \\\\ \n    \\midrule\n    001 & 2 & 100 \\\\\n    002 & 5 & 360 \\\\\n    003 & 10 & 1225 \\\\\n    \\bottomrule\n  \\end{tabular}\\\\ \\smallskip\n  {\\small Nota: 30/09/2024 às 19:00.} % nota\n\\end{table}\n\n\n\n\nNesse caso, é interessante utilizar quando se se tem uma nota que irá preencher o tamanho inteiro da linha. Também serve para notas de rodapé com maior comprimento textual. Como vantagem, aqui conseguimos trabalhar questões de alinhamento da nota (esquerda, centro, direita).\n% a nota faz parte do conteúdo da tabela, na forma:\n\\multicolumn{número de colunas}{alinhamento}{conteúdo}\nPontos importantes:\npontos:\n\nO número de colunas deve ser igual às colunas contidas na tabela\nO alinhamento pode ser l, c ou r.\nNo conteúdo, podemos também adicionar um tamanho de fonte menor.\nCaso necessário podemos especificar a medida da coluna da nota. Exemplo: .\nSe desejar não deixar recuo entre a esquerda da tabela e a nota, basta adicionar @ nas opções de alinhamento.\n\n\n% Importante adicionar \\usepackage{multicol} no preâmbulo\n\n% Tabela 2:\n\\begin{table}[!ht]\n  \\centering\n  \\caption{Tabela exemplo (método 2)}\n  % corpo da tabela\n  \\begin{tabular}{ p{2.5cm} p{2cm} p{4.5cm} }\n    \\toprule\n    \\textbf{ID cliente} & \\textbf{Produto} & \\textbf{Quantidade vendida} \\\\ \n    \\midrule\n    001 & 2 & 100 \\\\\n    002 & 5 & 360 \\\\\n    003 & 10 & 1225 \\\\\n    \\bottomrule\n    \\multicolumn{3}{@{} l}{\\small Fonte: construção do autor.}\n  \\end{tabular}\n\\end{table}\n\n\n\n\n\\usepackage[flushleft]{threeparttable} % flushleft alinha à esquerda\n\n\n\n\n\n\nDocumentação threeparttable\n\n\n\nA documentação do pacote pode ser encontrada aqui.\n\n\nQuanto à hierarquia, vamos precisar ter o pacote threeparttable dentro do ambiente table e antes do tabular. Ainda, ele vai precisar do ambiente tablenotes para armazenar as notas de maneira organizada. A vantagem é que a nota já se ajusta automaticamente ao comprimento da tabela.\n% Tabela 3:\n\\begin{table}[!ht]\n  \\centering\n  \\caption{Tabela exemplo (método 3)}\n  \\begin{threeparttable}\n    % corpo da tabela\n    \\begin{tabular}{ p{2.5cm} p{2cm} p{4.5cm} }\n      \\toprule\n      \\textbf{ID cliente} & \\textbf{Produto} & \\textbf{Quantidade vendida} \\\\ \n      \\midrule\n      001\\tnote{a} & 2 & 100 \\\\\n      002 & 5 & 360 \\\\\n      003\\tnote{b} & 10 & 1225 \\\\\n      \\bottomrule\n    \\end{tabular}\n    % Notas\n    \\begin{tablenotes}\n      \\item[a] {\\small Recorrente}\n      \\item[b] {\\small Em estado de churn}\n      \\item[~] {\\small Nam dui ligula, fringilla a, euismod sodales, sollicitudin vel, wisi. Morbi auctor lorem non justo. Nam lacus libero, pretium at, lobortis vitae, ultricies et, tellus.}\n    \\end{tablenotes}\n    %\n  \\end{threeparttable}\n\\end{table}"
+  },
+  {
+    "objectID": "contents/notas.html#contexto",
+    "href": "contents/notas.html#contexto",
+    "title": "Notas em tabelas LaTeX",
+    "section": "",
+    "text": "Trabalhando com tabelas em LaTeX, usualmente nos encontramos em situações onde se faz necessário adicionar notas de rodapé em uma tabela. Durante minha caminhada com LaTeX, me deparei com três métodos:\n\nTexto após o tabular;\nVia multicolumn;\nPacote threeparttable.\n\nA seguir, veremos como implementar cada método.\n\n\nO método consiste em adicionar uma quebra de linha (\\\\) após o ambiente tabular. É útil quando a nota irá ocupar apenas uma linha.\n\\begin{table}\n% centralização, caption e label\n  \\begin{tabular}{}\n    % conteúdo da tabela\n  \\end{tabular} \\\\\n  NOTA DE RODAPÉ AQUI\n\\end{table}\n\nExemplo:\n\n\\begin{table}[!ht]\n  \\centering\n  \\caption{Tabela exemplo (método 1)}\n  % corpo da tabela\n  \\begin{tabular}{ p{2.5cm} p{2cm} p{2.75cm} }\n    \\toprule\n    \\textbf{ID ordem} & \\textbf{Itens} & \\textbf{Receita (R\\$)} \\\\ \n    \\midrule\n    001 & 2 & 100 \\\\\n    002 & 5 & 360 \\\\\n    003 & 10 & 1225 \\\\\n    \\bottomrule\n  \\end{tabular}\\\\ \\smallskip\n  {\\small Nota: 30/09/2024 às 19:00.} % nota\n\\end{table}\n\n\n\n\nNesse caso, é interessante utilizar quando se se tem uma nota que irá preencher o tamanho inteiro da linha. Também serve para notas de rodapé com maior comprimento textual. Como vantagem, aqui conseguimos trabalhar questões de alinhamento da nota (esquerda, centro, direita).\n% a nota faz parte do conteúdo da tabela, na forma:\n\\multicolumn{número de colunas}{alinhamento}{conteúdo}\nPontos importantes:\npontos:\n\nO número de colunas deve ser igual às colunas contidas na tabela\nO alinhamento pode ser l, c ou r.\nNo conteúdo, podemos também adicionar um tamanho de fonte menor.\nCaso necessário podemos especificar a medida da coluna da nota. Exemplo: .\nSe desejar não deixar recuo entre a esquerda da tabela e a nota, basta adicionar @ nas opções de alinhamento.\n\n\n% Importante adicionar \\usepackage{multicol} no preâmbulo\n\n% Tabela 2:\n\\begin{table}[!ht]\n  \\centering\n  \\caption{Tabela exemplo (método 2)}\n  % corpo da tabela\n  \\begin{tabular}{ p{2.5cm} p{2cm} p{4.5cm} }\n    \\toprule\n    \\textbf{ID cliente} & \\textbf{Produto} & \\textbf{Quantidade vendida} \\\\ \n    \\midrule\n    001 & 2 & 100 \\\\\n    002 & 5 & 360 \\\\\n    003 & 10 & 1225 \\\\\n    \\bottomrule\n    \\multicolumn{3}{@{} l}{\\small Fonte: construção do autor.}\n  \\end{tabular}\n\\end{table}\n\n\n\n\n\\usepackage[flushleft]{threeparttable} % flushleft alinha à esquerda\n\n\n\n\n\n\nDocumentação threeparttable\n\n\n\nA documentação do pacote pode ser encontrada aqui.\n\n\nQuanto à hierarquia, vamos precisar ter o pacote threeparttable dentro do ambiente table e antes do tabular. Ainda, ele vai precisar do ambiente tablenotes para armazenar as notas de maneira organizada. A vantagem é que a nota já se ajusta automaticamente ao comprimento da tabela.\n% Tabela 3:\n\\begin{table}[!ht]\n  \\centering\n  \\caption{Tabela exemplo (método 3)}\n  \\begin{threeparttable}\n    % corpo da tabela\n    \\begin{tabular}{ p{2.5cm} p{2cm} p{4.5cm} }\n      \\toprule\n      \\textbf{ID cliente} & \\textbf{Produto} & \\textbf{Quantidade vendida} \\\\ \n      \\midrule\n      001\\tnote{a} & 2 & 100 \\\\\n      002 & 5 & 360 \\\\\n      003\\tnote{b} & 10 & 1225 \\\\\n      \\bottomrule\n    \\end{tabular}\n    % Notas\n    \\begin{tablenotes}\n      \\item[a] {\\small Recorrente}\n      \\item[b] {\\small Em estado de churn}\n      \\item[~] {\\small Nam dui ligula, fringilla a, euismod sodales, sollicitudin vel, wisi. Morbi auctor lorem non justo. Nam lacus libero, pretium at, lobortis vitae, ultricies et, tellus.}\n    \\end{tablenotes}\n    %\n  \\end{threeparttable}\n\\end{table}"
+  },
+  {
+    "objectID": "contents/newcolumn.html",
+    "href": "contents/newcolumn.html",
+    "title": "Criando novos estilos de coluna",
+    "section": "",
+    "text": "Existem situações em que precisamos de uma coluna com dimensão especificada (p{medida}), porém, combinada a um alinhamento à esquerda ou à direita. Para isso, podemos utilizar os pacotes abaixo.\n\\usepackage{array}\n\\usepackage{ragged2e}\nDessa maneira, a sintaxe para o comando é:\n\\newcolumntype{caracter}[n]{definição da coluna}\nAssim podemos criar, no preâmbulo:\n% Coluna alinha ao centro (dimensão especificada):\n\\newcolumntype{C}[1]{&gt;{\\centering\\arraybackslash}m{#1}} \n\n% Coluna alinha à esquerda (dimensão especificada):\n\\newcolumntype{L}[1]{&gt;{\\raggedright\\arraybackslash}m{#1}}\n\n% Coluna alinha à direita (dimensão especificada):\n\\newcolumntype{R}[1]{&gt;{\\raggedleft\\arraybackslash}m{#1}}"
+  },
+  {
+    "objectID": "contents/newcolumn.html#newcolumntype",
+    "href": "contents/newcolumn.html#newcolumntype",
+    "title": "Criando novos estilos de coluna",
+    "section": "",
+    "text": "Existem situações em que precisamos de uma coluna com dimensão especificada (p{medida}), porém, combinada a um alinhamento à esquerda ou à direita. Para isso, podemos utilizar os pacotes abaixo.\n\\usepackage{array}\n\\usepackage{ragged2e}\nDessa maneira, a sintaxe para o comando é:\n\\newcolumntype{caracter}[n]{definição da coluna}\nAssim podemos criar, no preâmbulo:\n% Coluna alinha ao centro (dimensão especificada):\n\\newcolumntype{C}[1]{&gt;{\\centering\\arraybackslash}m{#1}} \n\n% Coluna alinha à esquerda (dimensão especificada):\n\\newcolumntype{L}[1]{&gt;{\\raggedright\\arraybackslash}m{#1}}\n\n% Coluna alinha à direita (dimensão especificada):\n\\newcolumntype{R}[1]{&gt;{\\raggedleft\\arraybackslash}m{#1}}"
+  },
+  {
+    "objectID": "contents/longtables.html",
+    "href": "contents/longtables.html",
+    "title": "Tabelas em múltiplas páginas (longtables)",
+    "section": "",
+    "text": "Certamente, existem ferramentas que nos auxiliam a otimizar a criação de tabelas em LaTeX. Alguns exemplos são:"
+  },
+  {
+    "objectID": "contents/longtables.html#ferramentas",
+    "href": "contents/longtables.html#ferramentas",
+    "title": "Tabelas em múltiplas páginas (longtables)",
+    "section": "",
+    "text": "Certamente, existem ferramentas que nos auxiliam a otimizar a criação de tabelas em LaTeX. Alguns exemplos são:"
+  },
+  {
+    "objectID": "contents/nocoes_bascias.html",
+    "href": "contents/nocoes_bascias.html",
+    "title": "Tabelas em LaTeX",
+    "section": "",
+    "text": "As tabelas em LaTeX compreendem dois ambientes, o ambiente table e o ambiente tabular. Vale notar que:\n\ntable: ambiente principal onde são configurados posicionamento, centralização, legenda e rótulo (para referência cruzada)\ntabular: armazena o conteúdo da tabela.\n&: separa cada coluna\n\\\\ (backslash duplo): nova linha.\n\nAssim, temos genericamente:\n\\begin{table}[] % posição\n    \\centering  % centraliza a tabela\n    % -- conteúdo da tabela:\n    \\begin{tabular}{c|c} \n         &  \\\\\n         & \n    \\end{tabular}\n    % -- fim do conteúdo da tabela:\n    \\caption{Caption} % legenda\n    \\label{tab:my_label} % rótulo para referência cruzada\n\\end{table}"
+  },
+  {
+    "objectID": "contents/nocoes_bascias.html#noções-básicas",
+    "href": "contents/nocoes_bascias.html#noções-básicas",
+    "title": "Tabelas em LaTeX",
+    "section": "",
+    "text": "As tabelas em LaTeX compreendem dois ambientes, o ambiente table e o ambiente tabular. Vale notar que:\n\ntable: ambiente principal onde são configurados posicionamento, centralização, legenda e rótulo (para referência cruzada)\ntabular: armazena o conteúdo da tabela.\n&: separa cada coluna\n\\\\ (backslash duplo): nova linha.\n\nAssim, temos genericamente:\n\\begin{table}[] % posição\n    \\centering  % centraliza a tabela\n    % -- conteúdo da tabela:\n    \\begin{tabular}{c|c} \n         &  \\\\\n         & \n    \\end{tabular}\n    % -- fim do conteúdo da tabela:\n    \\caption{Caption} % legenda\n    \\label{tab:my_label} % rótulo para referência cruzada\n\\end{table}"
+  },
+  {
+    "objectID": "contents/nocoes_bascias.html#exemplo",
+    "href": "contents/nocoes_bascias.html#exemplo",
+    "title": "Tabelas em LaTeX",
+    "section": "Exemplo",
+    "text": "Exemplo\nPor exemplo, caso se queira produzir a tabela abaixo com LaTeX,\n\nUtilizamos o seguinte bloco de código:\n\\begin{table}[!ht]\n    \\centering\n    %\\caption{Gravidades específicas de algumas ligas metálicas utilizadas como implantes.}\n    \\begin{tabular}{l r}\n    \\hline\n    Ligas & Densidade ($g/cm^3$) \\\\ \\hline\n    Ti a suas ligas & 4.5 \\\\\n    Aço inoxidável 316 & 7.9 \\\\\n    CoCrMo & 8.3 \\\\\n    CoNiCrMo & 9.2 \\\\\n    NiTi & 6.7 \\\\ \\hline\n    \\end{tabular}\n\\end{table}"
+  },
+  {
+    "objectID": "contents/nocoes_bascias.html#opções",
+    "href": "contents/nocoes_bascias.html#opções",
+    "title": "Tabelas em LaTeX",
+    "section": "Opções",
+    "text": "Opções\nOpções para a tabela:\n\nPosicionamento da tabela: h (here), t (top) ou b (bottom)\nAlinhamento das colunas: l, c ou r\nColuna com dimensão especificada: p{medida} (e.g., p{2cm})\nCom o pacote array, é possível utilizar o m{medida}\nLinhas horizontais: \\hline, \\cline{i-j}\nLinhas horizontais com booktabs: toprule, midrule, bottomrule, \\cmidrule{i-j}, \\midrule[2pt]\nLinhas verticiais: | (junto com o alinhamento das colunas)"
+  },
+  {
+    "objectID": "contents/nocoes_bascias.html#referência-cruzada",
+    "href": "contents/nocoes_bascias.html#referência-cruzada",
+    "title": "Tabelas em LaTeX",
+    "section": "Referência cruzada",
+    "text": "Referência cruzada\nPara referenciar no texto:\nPodemos usar o comando Tabela \\ref{tab:rotulo}, que vai retornar “Tabela n” (com o número atualizado da tabela)."
+  },
+  {
+    "objectID": "contents/nocoes_bascias.html#células-mescladas",
+    "href": "contents/nocoes_bascias.html#células-mescladas",
+    "title": "Tabelas em LaTeX",
+    "section": "Células mescladas",
+    "text": "Células mescladas\nPara utilizar células mescladas, utilizamos os pacotes multicol e multirow. Nesse caso, temos duas opções:\n\nMulticolumn: colunas mescladas\nMultirow: linhas mescladas.\n\nComo sintaxe, temos:\n\nMulticolumn:\n\n%\\multicolumn{num_colunas}{alinhamento}{conteúdo}\n\\multicolumn{3}{c}{conteúdo}\n\nMultirow:\n\n%\\multirow{num_linhas}{largura}{conteúdo}\n\\multirow{3}{*}{conteúdo} % * indica largura padrão\n% outra opção:\n\\multirow{3}{2em}{conteúdo}\n\nExemplo completo:\n\n\\documentclass[a4paper,12pt]{article} % classe\n\\usepackage[utf8]{inputenc} % codificação\n\\usepackage[brazil]{babel} % idioma\n\\usepackage[margin=2cm]{geometry} % margens\n\\usepackage{times} % fonte\n\\usepackage{setspace} % pacote espaçamento\n\\onehalfspacing % espaçamento 1.5\n\\setlength{\\parindent}{0pt} % indentação parágrafos\n\\setlength{\\parskip}{8pt} % espaçamento entre parágrafos \n\\renewcommand{\\arraystretch}{1.5} % espaçamento 1.5 nas tabelas\n\\usepackage{multirow}\n\n\\begin{document}\n\n\n\\section*{Multicol}\n\n\\begin{table}[!ht]\n\\centering\n\\begin{tabular}{ccc}\n    \\hline\n    \\textbf{Grupo} & \\multicolumn{2}{c}{\\textbf{Notas}} \\\\ \\cline{2-3}\n    & \\textbf{Prova 1} & \\textbf{Prova 2} \\\\ \\hline\n    A & 8.5 & 7.0 \\\\ \n    B & 6.0 & 9.0 \\\\\n    C & 7.5 & 8.0 \\\\ \\hline\n\\end{tabular}\n\\end{table}\n\n\\section*{Multirow}\n\n\\begin{table}[!ht]\n\\centering\n\\begin{tabular}{ccc}\n    \\hline\n    \\textbf{Departamento} & \\textbf{Funcionário} & \\textbf{Salário} \\\\ \\hline\n    \\multirow{2}{*}{Marketing} & João & 3400 \\\\ \n     & Maria & 3600 \\\\ \\hline\n    \\multirow{2}{*}{TI} & Carlos & 12000 \\\\ \n     & Ana & 8000  \\\\ \\hline\n\\end{tabular}\n\\end{table}\n\n\\end{document}\n\n\n\n\n\n\n\nRecurso online (Overleaf)\n\n\n\nArtigo de blog sobre LaTeX tables."
+  },
+  {
+    "objectID": "contents/otimizando.html",
+    "href": "contents/otimizando.html",
+    "title": "Otimizando a criação de Tabelas em LaTeX",
+    "section": "",
+    "text": "Certamente, existem ferramentas que nos auxiliam a otimizar a criação de tabelas em LaTeX. Alguns exemplos são:\n\nLaTeX tables generator\nTable Convert\nPlugins do MS Excel (e.g., Excel2LaTeX)\nPython (o pacote pandas tem suporte para TeX)\n\nEssas ferramentas são incríveis, porém, elas não fazem todo o trabalho. Normalmente, dependendo da complexidade da tabela, é preciso implementar alguns ajustes. Por esse motivo, é interessante entender o básico sobre a estrutura de tabelas em LaTeX. Segue o processo que utilizei/utilizo ao longo tempo trabalhando com tabelas em LaTeX:"
+  },
+  {
+    "objectID": "contents/otimizando.html#ferramentas",
+    "href": "contents/otimizando.html#ferramentas",
+    "title": "Otimizando a criação de Tabelas em LaTeX",
+    "section": "",
+    "text": "Certamente, existem ferramentas que nos auxiliam a otimizar a criação de tabelas em LaTeX. Alguns exemplos são:\n\nLaTeX tables generator\nTable Convert\nPlugins do MS Excel (e.g., Excel2LaTeX)\nPython (o pacote pandas tem suporte para TeX)\n\nEssas ferramentas são incríveis, porém, elas não fazem todo o trabalho. Normalmente, dependendo da complexidade da tabela, é preciso implementar alguns ajustes. Por esse motivo, é interessante entender o básico sobre a estrutura de tabelas em LaTeX. Segue o processo que utilizei/utilizo ao longo tempo trabalhando com tabelas em LaTeX:"
+  },
+  {
+    "objectID": "contents/otimizando.html#exemplo-latex-tables-generator",
+    "href": "contents/otimizando.html#exemplo-latex-tables-generator",
+    "title": "Otimizando a criação de Tabelas em LaTeX",
+    "section": "Exemplo (LaTeX tables generator)",
+    "text": "Exemplo (LaTeX tables generator)\nReproduza a tabela a seguir, fazendo uso de ferramentas auxiliares:"
+  },
+  {
+    "objectID": "contents/otimizando.html#exemplo-com-python",
+    "href": "contents/otimizando.html#exemplo-com-python",
+    "title": "Otimizando a criação de Tabelas em LaTeX",
+    "section": "Exemplo com Python",
+    "text": "Exemplo com Python\nPara esse exemplo, vamos utilizar o Google Colab. Vamos partir de um arquivo .csv e também de uma tabela da web (em html). Ao final, teremos duas tabelas em LaTeX de maneira prática e rápida.\n\n1. Arquivo csv\nSuponha que você tenha o seguinte arquivo csv (separado por vírgulas):\n\n%%writefile ordens.csv\nPedido;Produto;Valor Venda;Quantidade Vendida;Custo Envio\nCA-2012-124891;TEC-AC-10003033;2309,65;7;933,57\nIN-2013-77878;FUR-CH-10003950;3,709,395;9;923,63\nIN-2013-71249;TEC-PH-10004664;5,175,171;9;915,49\nES-2013-1579342;TEC-PH-10004583;2892,51;5;910,16\nSG-2013-4320;TEC-SHA-10000501;2832,96;8;903,04\nIN-2013-42360;TEC-PH-10000030;2,862,675;5;897,35\nIN-2011-81826;FUR-CH-10004050;1822,08;4;894,77\nIN-2012-86369;FUR-TA-10002958;5244,84;6;878,38\nCA-2014-135909;OFF-BI-10003527;5083,96;5;867,69\n\nOverwriting ordens.csv\n\n\nPodemos utilizar a biblioteca Pandas para ler essa tabela:\n\n# biblioteca:\nimport pandas as pd\n\n# lendo a tabela:\ndados = pd.read_csv(\"ordens.csv\", sep=\";\")\n# resultado:\ndados\n\n\n\n\n\n\n\n\nPedido\nProduto\nValor Venda\nQuantidade Vendida\nCusto Envio\n\n\n\n\n0\nCA-2012-124891\nTEC-AC-10003033\n2309,65\n7\n933,57\n\n\n1\nIN-2013-77878\nFUR-CH-10003950\n3,709,395\n9\n923,63\n\n\n2\nIN-2013-71249\nTEC-PH-10004664\n5,175,171\n9\n915,49\n\n\n3\nES-2013-1579342\nTEC-PH-10004583\n2892,51\n5\n910,16\n\n\n4\nSG-2013-4320\nTEC-SHA-10000501\n2832,96\n8\n903,04\n\n\n5\nIN-2013-42360\nTEC-PH-10000030\n2,862,675\n5\n897,35\n\n\n6\nIN-2011-81826\nFUR-CH-10004050\n1822,08\n4\n894,77\n\n\n7\nIN-2012-86369\nFUR-TA-10002958\n5244,84\n6\n878,38\n\n\n8\nCA-2014-135909\nOFF-BI-10003527\n5083,96\n5\n867,69\n\n\n\n\n\n\n\nCom isso, podemos obter o código em LaTeX pelo método to_latex().\ndados.to_latex(index=False, caption='Legenda da tabela', label='tab:vendas')\n\n\n\n\n\n\nDocumentação\n\n\n\nA documentação do método to_latex()pode ser encontrada aqui.\n\n\nIsso produz a saída em LaTeX:\n\\begin{table}\n\\centering % adicionado manualmente\n\\caption{Legenda da tabela}\n\\label{tab:vendas}\n\\begin{tabular}{lllrl}\n\\toprule\nPedido & Produto & Valor Venda & Quantidade Vendida & Custo Envio \\\\\n\\midrule\nCA-2012-124891 & TEC-AC-10003033 & 2309,65 & 7 & 933,57 \\\\\nIN-2013-77878 & FUR-CH-10003950 & 3,709,395 & 9 & 923,63 \\\\\nIN-2013-71249 & TEC-PH-10004664 & 5,175,171 & 9 & 915,49 \\\\\nES-2013-1579342 & TEC-PH-10004583 & 2892,51 & 5 & 910,16 \\\\\nSG-2013-4320 & TEC-SHA-10000501 & 2832,96 & 8 & 903,04 \\\\\nIN-2013-42360 & TEC-PH-10000030 & 2,862,675 & 5 & 897,35 \\\\\nIN-2011-81826 & FUR-CH-10004050 & 1822,08 & 4 & 894,77 \\\\\nIN-2012-86369 & FUR-TA-10002958 & 5244,84 & 6 & 878,38 \\\\\nCA-2014-135909 & OFF-BI-10003527 & 5083,96 & 5 & 867,69 \\\\\n\\bottomrule\n\\end{tabular}\n\\end{table}\n\n\n2. Tabela html (da web)\n\nwikipedia = pd.read_html(\"https://pt.wikipedia.org/wiki/Lista_de_unidades_federativas_do_Brasil_por_popula%C3%A7%C3%A3o\")\nwikipedia = wikipedia[2]\nwikipedia = wikipedia[['Região', 'População (Estimativa 2024)']]\nwikipedia\n\n\n\n\n\n\n\n\nRegião\nPopulação (Estimativa 2024)\n\n\n\n\n0\nRegião Sudeste\n88.617.693\n\n\n1\nRegião Nordeste\n57.112.096\n\n\n2\nRegião Sul\n31.113.021\n\n\n3\nRegião Norte\n18.669.345\n\n\n4\nRegião Centro-Oeste\n17.071.595\n\n\n\n\n\n\n\nwikipedia.to_latex(index=False, caption='População BR por região', label='tab:populacao')\nIsso produz a saída em LaTeX:\n\\begin{table}\n\\centering % adicionado manualmente\n\\caption{População BR por região}\n\\label{tab:populacao}\n\\begin{tabular}{ll}\n\\toprule\nRegião & População (Estimativa 2024) \\\\\n\\midrule\nRegião Sudeste & 88.617.693 \\\\\nRegião Nordeste & 57.112.096 \\\\\nRegião Sul & 31.113.021 \\\\\nRegião Norte & 18.669.345 \\\\\nRegião Centro-Oeste & 17.071.595 \\\\\n\\bottomrule\n\\end{tabular}\n\\end{table}"
+  },
+  {
+    "objectID": "contents/parbox.html",
+    "href": "contents/parbox.html",
+    "title": "Comando parbox",
+    "section": "",
+    "text": "Muitas vezes, podem surgir dificuldades ao ajustar uma célula mesclada - principalmente quando se utiliza o multirow. Nessas sitauções, podemos “enjanbrar” com o comando parbox. Convenhamos, não é uma solução elegante, mas vai resolver muitos problemas. A sintaxe do comando é:\n\\parbox{medida}{conteúdo} \nEm um uma célula mesclada ocupando duas linhas, ficaria:\n% note que centralizamos o conteúdo com o \\centering:\n\\multirow{2}{*}{\\parbox{2.5cm}{\\centering\\vspace*{3pt} texto \\\\ nova linha} \\vspace*{10pt}}\nVantagens:\n\nPodemos adicionar quebras de linha dentro da célula.\nA medida não precisa seguir a mesma medida da coluna em si.\n\nDesvantagens:\n\nPrecisamos adicionar espaços antes e após o conteúdo. Caso contrário, fica muito “colado” as linhas adjacentes.\n\nVejamos um exemplo de uso."
+  },
+  {
+    "objectID": "contents/parbox.html#comando-parbox",
+    "href": "contents/parbox.html#comando-parbox",
+    "title": "Comando parbox",
+    "section": "",
+    "text": "Muitas vezes, podem surgir dificuldades ao ajustar uma célula mesclada - principalmente quando se utiliza o multirow. Nessas sitauções, podemos “enjanbrar” com o comando parbox. Convenhamos, não é uma solução elegante, mas vai resolver muitos problemas. A sintaxe do comando é:\n\\parbox{medida}{conteúdo} \nEm um uma célula mesclada ocupando duas linhas, ficaria:\n% note que centralizamos o conteúdo com o \\centering:\n\\multirow{2}{*}{\\parbox{2.5cm}{\\centering\\vspace*{3pt} texto \\\\ nova linha} \\vspace*{10pt}}\nVantagens:\n\nPodemos adicionar quebras de linha dentro da célula.\nA medida não precisa seguir a mesma medida da coluna em si.\n\nDesvantagens:\n\nPrecisamos adicionar espaços antes e após o conteúdo. Caso contrário, fica muito “colado” as linhas adjacentes.\n\nVejamos um exemplo de uso."
+  },
+  {
+    "objectID": "contents/rotating.html",
+    "href": "contents/rotating.html",
+    "title": "Células rotacionadas e diagbox",
+    "section": "",
+    "text": "Por meio do pacote rotating, podemos rotacionar uma célula da tabela (seja no cabeçalho ou no corpo) da seguinte forma:\n\\rotatebox{ângulo}{conteúdo}\nAssim, o exemplo abaixo retorna a saída a seguir.\n\\begin{table}[ht]\n    \\centering\n    \\caption{Cabeçalhos rotacionados.}\n    \\label{tab:rotacionada}\n    \\begin{tabular}{llll}\n        \\toprule\n        \\textbf{Categoria} & \\rotatebox{90}{Métrica 1} & \\rotatebox{90}{Métrica 2} & \\rotatebox{90}{Métrica 3} \\\\\n        \\midrule\n        A & 10 & 20 & 30 \\\\\n        B & 15 & 25 & 35 \\\\\n        C & 18 & 28 & 38 \\\\\n        \\bottomrule\n    \\end{tabular}\n\\end{table}"
+  },
+  {
+    "objectID": "contents/rotating.html#células-rotacionadas",
+    "href": "contents/rotating.html#células-rotacionadas",
+    "title": "Células rotacionadas e diagbox",
+    "section": "",
+    "text": "Por meio do pacote rotating, podemos rotacionar uma célula da tabela (seja no cabeçalho ou no corpo) da seguinte forma:\n\\rotatebox{ângulo}{conteúdo}\nAssim, o exemplo abaixo retorna a saída a seguir.\n\\begin{table}[ht]\n    \\centering\n    \\caption{Cabeçalhos rotacionados.}\n    \\label{tab:rotacionada}\n    \\begin{tabular}{llll}\n        \\toprule\n        \\textbf{Categoria} & \\rotatebox{90}{Métrica 1} & \\rotatebox{90}{Métrica 2} & \\rotatebox{90}{Métrica 3} \\\\\n        \\midrule\n        A & 10 & 20 & 30 \\\\\n        B & 15 & 25 & 35 \\\\\n        C & 18 & 28 & 38 \\\\\n        \\bottomrule\n    \\end{tabular}\n\\end{table}"
+  },
+  {
+    "objectID": "contents/rotating.html#comando-diagbox",
+    "href": "contents/rotating.html#comando-diagbox",
+    "title": "Células rotacionadas e diagbox",
+    "section": "Comando diagbox",
+    "text": "Comando diagbox\nQuando precisamos dividir dois textos na diagonal de uma célula, o pacote diagbox é muito útil.\n\n\n\n\n\n\nDocumentação do pacote diagbox\n\n\n\nA documentação do pacote pode ser encontrada aqui.\n\n\nNada melhor que um exemplo, vejamos a seguir.\n\\begin{table}[h]\n    \\centering\n    \\caption{Exemplo de diagbox.}\n    \\label{tab:rotacionada}\n    \\begin{tabular}{llll}\n        \\toprule\n        \\diagbox{Categoria}{Indicador} & \\rotatebox{90}{Métrica 1} & \\rotatebox{90}{Métrica 2} & \\rotatebox{90}{Métrica 3} \\\\\n        \\midrule\n        A & 10 & 20 & 30 \\\\\n        B & 15 & 25 & 35 \\\\\n        C & 18 & 28 & 38 \\\\\n        \\bottomrule\n    \\end{tabular}\n\\end{table}"
+  }
+]

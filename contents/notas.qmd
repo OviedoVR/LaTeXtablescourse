@@ -1,0 +1,146 @@
+---
+title: "Notas em tabelas LaTeX"
+author: "Vinícius Oviedo"
+lang: pt-br
+toc: true
+---
+
+## Contexto
+
+Trabalhando com tabelas em LaTeX, usualmente nos encontramos em situações onde se faz necessário adicionar notas de rodapé em uma tabela.
+Durante minha caminhada com LaTeX, me deparei com três métodos:
+
+1. Texto após o tabular;
+2. Via `multicolumn`;
+3. Pacote `threeparttable`.
+
+A seguir, veremos como implementar cada método.
+
+### 1. Texto após o tabular
+
+O método consiste em adicionar uma quebra de linha (`\\`) após o ambiente tabular. É útil quando
+a nota irá ocupar apenas uma linha.
+
+```LaTeX
+\begin{table}
+% centralização, caption e label
+  \begin{tabular}{}
+    % conteúdo da tabela
+  \end{tabular} \\
+  NOTA DE RODAPÉ AQUI
+\end{table}
+```
+
+> Exemplo:
+
+```LaTeX
+\begin{table}[!ht]
+  \centering
+  \caption{Tabela exemplo (método 1)}
+  % corpo da tabela
+  \begin{tabular}{ p{2.5cm} p{2cm} p{2.75cm} }
+    \toprule
+    \textbf{ID ordem} & \textbf{Itens} & \textbf{Receita (R\$)} \\ 
+    \midrule
+    001 & 2 & 100 \\
+    002 & 5 & 360 \\
+    003 & 10 & 1225 \\
+    \bottomrule
+  \end{tabular}\\ \smallskip
+  {\small Nota: 30/09/2024 às 19:00.} % nota
+\end{table}
+```
+
+![](C:\Users\vinic\Desktop\LaTeXtablescourse\assets\nota_1.png){width=40%}
+
+
+### 2. Via `multicolumn`
+
+Nesse caso, é interessante utilizar quando se se tem uma nota que irá preencher o tamanho inteiro da linha. 
+Também serve para notas de rodapé com maior comprimento textual. Como vantagem, aqui conseguimos trabalhar
+questões de alinhamento da nota (esquerda, centro, direita).
+
+```LaTeX
+% a nota faz parte do conteúdo da tabela, na forma:
+\multicolumn{número de colunas}{alinhamento}{conteúdo}
+```
+
+Pontos importantes:
+
+ pontos:
+
+- O número de colunas deve ser igual às colunas contidas na tabela
+- O alinhamento pode ser l, c ou r.
+- No conteúdo, podemos também adicionar um tamanho de fonte menor.
+- Caso necessário podemos especificar a medida da coluna da nota. Exemplo: \multicolumn{3}{ p{6cm} }{Nota…}.
+- Se desejar não deixar recuo entre a esquerda da tabela e a nota, basta adicionar @{} nas opções de alinhamento.
+
+```LaTeX
+
+% Importante adicionar \usepackage{multicol} no preâmbulo
+
+% Tabela 2:
+\begin{table}[!ht]
+  \centering
+  \caption{Tabela exemplo (método 2)}
+  % corpo da tabela
+  \begin{tabular}{ p{2.5cm} p{2cm} p{4.5cm} }
+    \toprule
+    \textbf{ID cliente} & \textbf{Produto} & \textbf{Quantidade vendida} \\ 
+    \midrule
+    001 & 2 & 100 \\
+    002 & 5 & 360 \\
+    003 & 10 & 1225 \\
+    \bottomrule
+    \multicolumn{3}{@{} l}{\small Fonte: construção do autor.}
+  \end{tabular}
+\end{table}
+```
+
+![](C:\Users\vinic\Desktop\LaTeXtablescourse\assets\nota_2.png){width=50%}
+
+
+### 3. Pacote `threeparttable`
+
+
+```LaTeX
+\usepackage[flushleft]{threeparttable} % flushleft alinha à esquerda
+```
+
+::: {.callout-note title="Documentação threeparttable"}
+A documentação do pacote pode ser encontrada [aqui](https://ctan.org/pkg/threeparttable?lang=en).
+:::
+
+Quanto à hierarquia, vamos precisar ter o pacote threeparttable dentro do ambiente table e antes 
+do tabular. Ainda, ele vai precisar do ambiente tablenotes para armazenar as notas de maneira 
+organizada. A vantagem é que a nota já se ajusta automaticamente ao comprimento da tabela.
+
+
+```LaTeX
+% Tabela 3:
+\begin{table}[!ht]
+  \centering
+  \caption{Tabela exemplo (método 3)}
+  \begin{threeparttable}
+    % corpo da tabela
+    \begin{tabular}{ p{2.5cm} p{2cm} p{4.5cm} }
+      \toprule
+      \textbf{ID cliente} & \textbf{Produto} & \textbf{Quantidade vendida} \\ 
+      \midrule
+      001\tnote{a} & 2 & 100 \\
+      002 & 5 & 360 \\
+      003\tnote{b} & 10 & 1225 \\
+      \bottomrule
+    \end{tabular}
+    % Notas
+    \begin{tablenotes}
+      \item[a] {\small Recorrente}
+      \item[b] {\small Em estado de churn}
+      \item[~] {\small Nam dui ligula, fringilla a, euismod sodales, sollicitudin vel, wisi. Morbi auctor lorem non justo. Nam lacus libero, pretium at, lobortis vitae, ultricies et, tellus.}
+    \end{tablenotes}
+    %
+  \end{threeparttable}
+\end{table}
+```
+
+![](C:\Users\vinic\Desktop\LaTeXtablescourse\assets\nota_3.png){width=50%}

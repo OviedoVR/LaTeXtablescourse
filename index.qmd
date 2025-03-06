@@ -1,13 +1,23 @@
 ---
-title: "Portfolio de Análise de Dados"
+title: "Descomplicando Tabelas em LaTeX"
 author: "Vinícius Oviedo"
 lang: pt-br
 ---
 
-Bem-vindo ao meu portfolio de Análise de Dados. Nesta página, você encontrará os seguintes projetos:
+Bem-vindo ao curso **Descomplicando Tabelas em LaTeX**. Nesta página, você encontrará os seguintes tópicos:
 
 ::: {.callout-note title="Nota"}
 Você pode acessá-los por meio da guia de navegação no topo da página.
 :::
+
+1. Noções básicas
+2. Ferramentas auxiliares
+3. Comando `\parbox`
+4. Novas colunas
+5. Notas em tabelas
+6. Customização da legenda 
+7. `Longtable` e `\ContinuedFloat`
+8. Células rotacionadas e `diagbox`
+9. Quadros e lista de quadros (ABNT)
 
 > Desenvolvido com Quarto markdown (mais detalhes em <https://quarto.org/docs/websites>).

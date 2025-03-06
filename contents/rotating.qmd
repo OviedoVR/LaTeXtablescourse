@@ -1,10 +1,66 @@
 ---
-title: "Células rotacionadas"
+title: "Células rotacionadas e diagbox"
 author: "Vinícius Oviedo"
 lang: pt-br
 toc: true
 ---
 
-## Ferramentas
+## Células rotacionadas
 
-Certamente, existem ferramentas que nos auxiliam a otimizar a criação de tabelas em LaTeX. Alguns exemplos são:
+Por meio do pacote `rotating`, podemos rotacionar uma célula da tabela 
+(seja no cabeçalho ou no corpo) da seguinte forma:
+
+```LaTeX
+\rotatebox{ângulo}{conteúdo}
+```
+
+Assim, o exemplo abaixo retorna a saída a seguir.
+
+```LaTeX
+\begin{table}[ht]
+    \centering
+    \caption{Cabeçalhos rotacionados.}
+    \label{tab:rotacionada}
+    \begin{tabular}{llll}
+        \toprule
+        \textbf{Categoria} & \rotatebox{90}{Métrica 1} & \rotatebox{90}{Métrica 2} & \rotatebox{90}{Métrica 3} \\
+        \midrule
+        A & 10 & 20 & 30 \\
+        B & 15 & 25 & 35 \\
+        C & 18 & 28 & 38 \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+```
+
+![](C:\Users\vinic\Desktop\LaTeXtablescourse\assets\rotating.png){width=40%}
+
+
+## Comando `diagbox`
+
+Quando precisamos dividir dois textos na diagonal de uma célula, o pacote `diagbox` é muito útil.
+
+::: {.callout-note title="Documentação do pacote diagbox"}
+A documentação do pacote pode ser encontrada [aqui](https://ctan.org/pkg/diagbox).
+:::
+
+Nada melhor que um exemplo, vejamos a seguir.
+
+```LaTeX
+\begin{table}[h]
+    \centering
+    \caption{Exemplo de diagbox.}
+    \label{tab:rotacionada}
+    \begin{tabular}{llll}
+        \toprule
+        \diagbox{Categoria}{Indicador} & \rotatebox{90}{Métrica 1} & \rotatebox{90}{Métrica 2} & \rotatebox{90}{Métrica 3} \\
+        \midrule
+        A & 10 & 20 & 30 \\
+        B & 15 & 25 & 35 \\
+        C & 18 & 28 & 38 \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+```
+
+![](C:\Users\vinic\Desktop\LaTeXtablescourse\assets\diagbox.png){width=40%}

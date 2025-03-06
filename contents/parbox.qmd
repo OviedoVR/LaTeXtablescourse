@@ -1,10 +1,37 @@
 ---
-title: "Comando `parbox`"
+title: "Comando parbox"
 author: "Vinícius Oviedo"
 lang: pt-br
 toc: true
 ---
 
-## Ferramentas
+## Comando `parbox`
 
-Certamente, existem ferramentas que nos auxiliam a otimizar a criação de tabelas em LaTeX. Alguns exemplos são:
+Muitas vezes, podem surgir dificuldades ao ajustar uma célula mesclada - principalmente quando se utiliza o `multirow`. Nessas sitauções,
+podemos "enjanbrar" com o comando `parbox`. Convenhamos, não é uma solução elegante, mas vai resolver muitos problemas. A sintaxe do
+comando é:
+
+```LaTeX
+\parbox{medida}{conteúdo} 
+```
+
+Em um uma célula mesclada ocupando duas linhas, ficaria:
+
+```LaTeX
+% note que centralizamos o conteúdo com o \centering:
+\multirow{2}{*}{\parbox{2.5cm}{\centering\vspace*{3pt} texto \\ nova linha} \vspace*{10pt}}
+```
+
+Vantagens:
+
+- Podemos adicionar quebras de linha dentro da célula.
+- A medida não precisa seguir a mesma medida da coluna em si.
+
+Desvantagens:
+
+- Precisamos adicionar espaços antes e após o conteúdo. Caso contrário, fica muito "colado" as linhas adjacentes.
+
+
+Vejamos um exemplo de uso.
+
+![](C:\Users\vinic\Desktop\LaTeXtablescourse\assets\parbox.png){width=50%}
