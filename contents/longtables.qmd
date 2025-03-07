@@ -28,8 +28,9 @@ Estilo da parte inferior (última página)
 \endlastfoot
 %
 CONTEÚDO DA TABELA
-```
 \end{longtable}
+```
+
 
 ::: {.callout-note title="Dica"}
 Caso precise, você pode forçar a quebra de página com `pagebreak`.
