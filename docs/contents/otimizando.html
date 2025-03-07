@@ -151,11 +151,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="dropdown-text">Notas de rodapé</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../contents/rotating.html">
+    <a class="dropdown-item" href="../contents/longtables.html">
  <span class="dropdown-text">Longtables e ContinuedFloat</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../contents/rotating.html">
+    <a class="dropdown-item" href="../contents/legenda.html">
  <span class="dropdown-text">Customização da legenda</span></a>
   </li>  
         <li>
@@ -232,12 +232,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Python (o pacote <code>pandas</code> tem suporte para <code>TeX</code>)</li>
 </ol>
 <p>Essas ferramentas são incríveis, porém, elas não fazem todo o trabalho. Normalmente, dependendo da complexidade da tabela, é preciso implementar alguns ajustes. Por esse motivo, é interessante entender o básico sobre a estrutura de tabelas em LaTeX. Segue o processo que utilizei/utilizo ao longo tempo trabalhando com tabelas em LaTeX:</p>
-<p><img src="C:\Users\vinic\Documents\LaTeX-tables\Conteudo-LaTeX-tables\assets\processo-criar-tabela.png" class="img-fluid" style="width:100.0%"></p>
+<p><img src="assets/processo-criar-tabela.png" class="img-fluid" style="width:100.0%"></p>
 </section>
 <section id="exemplo-latex-tables-generator" class="level2">
 <h2 class="anchored" data-anchor-id="exemplo-latex-tables-generator">Exemplo (LaTeX tables generator)</h2>
 <p>Reproduza a tabela a seguir, fazendo uso de ferramentas auxiliares:</p>
-<p><img src="C:\Users\vinic\Documents\LaTeX-tables\Conteudo-LaTeX-tables\assets\LaTeXtablesGen.png" class="img-fluid" style="width:70.0%"></p>
+<p><img src="assets/LaTeXtablesGen.png" class="img-fluid" style="width:70.0%"></p>
 </section>
 <section id="exemplo-com-python" class="level2">
 <h2 class="anchored" data-anchor-id="exemplo-com-python">Exemplo com Python</h2>
@@ -245,7 +245,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="arquivo-csv" class="level3">
 <h3 class="anchored" data-anchor-id="arquivo-csv">1. Arquivo csv</h3>
 <p>Suponha que você tenha o seguinte arquivo <code>csv</code> (separado por vírgulas):</p>
-<div id="019b1f97" class="cell" data-execution_count="1">
+<div id="4a90a8a6" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>writefile ordens.csv</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>Pedido<span class="op">;</span>Produto<span class="op">;</span>Valor Venda<span class="op">;</span>Quantidade Vendida<span class="op">;</span>Custo Envio</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>CA<span class="op">-</span><span class="dv">2012</span><span class="op">-</span><span class="dv">124891</span><span class="op">;</span>TEC<span class="op">-</span>AC<span class="op">-</span><span class="dv">10003033</span><span class="op">;</span><span class="dv">2309</span>,<span class="dv">65</span><span class="op">;</span><span class="dv">7</span><span class="op">;</span><span class="dv">933</span>,<span class="dv">57</span></span>
@@ -262,7 +262,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>Podemos utilizar a biblioteca <code>Pandas</code> para ler essa tabela:</p>
-<div id="fdfe9eeb" class="cell" data-execution_count="2">
+<div id="75efd7bd" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># biblioteca:</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -403,7 +403,7 @@ Documentação
 </section>
 <section id="tabela-html-da-web" class="level3">
 <h3 class="anchored" data-anchor-id="tabela-html-da-web">2. Tabela html (da web)</h3>
-<div id="5b3cbd39" class="cell" data-execution_count="3">
+<div id="1fdd17e3" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>wikipedia <span class="op">=</span> pd.read_html(<span class="st">"https://pt.wikipedia.org/wiki/Lista_de_unidades_federativas_do_Brasil_por_popula%C3%A7%C3%A3o"</span>)</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>wikipedia <span class="op">=</span> wikipedia[<span class="dv">2</span>]</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>wikipedia <span class="op">=</span> wikipedia[[<span class="st">'Região'</span>, <span class="st">'População (Estimativa 2024)'</span>]]</span>

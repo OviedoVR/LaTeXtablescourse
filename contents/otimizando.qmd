@@ -18,13 +18,13 @@ Essas ferramentas são incríveis, porém, elas não fazem todo o trabalho. Norm
 é preciso implementar alguns ajustes. Por esse motivo, é interessante entender o básico sobre a estrutura de tabelas em LaTeX. 
 Segue o processo que utilizei/utilizo ao longo tempo trabalhando com tabelas em LaTeX:
 
-![](C:\Users\vinic\Documents\LaTeX-tables\Conteudo-LaTeX-tables\assets\processo-criar-tabela.png){width=100%}
+![](assets/processo-criar-tabela.png){width=100%}
 
 ## Exemplo (LaTeX tables generator)
 
 Reproduza a tabela a seguir, fazendo uso de ferramentas auxiliares:
 
-![](C:\Users\vinic\Documents\LaTeX-tables\Conteudo-LaTeX-tables\assets\LaTeXtablesGen.png){width=70%}
+![](assets/LaTeXtablesGen.png){width=70%}
 
 
 ## Exemplo com Python

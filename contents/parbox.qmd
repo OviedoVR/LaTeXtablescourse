@@ -34,4 +34,4 @@ Desvantagens:
 
 Vejamos um exemplo de uso.
 
-![](C:\Users\vinic\Desktop\LaTeXtablescourse\assets\parbox.png){width=50%}
+![](assets/parbox.png){width=50%}

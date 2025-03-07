@@ -1,10 +1,11 @@
-Ordem do curso:
+Tópicos
 
 1. Noções básicas
-2. Otimiziando
-3. Parbox (trazer indentação)
-4. Newcolumn
-5. Notas
-6. Caption 
-7. Longtables e \ContinuedFloat
-8. Rotating cells
+2. Ferramentas auxiliares
+3. Comando `\parbox`
+4. Novas colunas
+5. Notas em tabelas
+6. Customização da legenda 
+7. `Longtable` e `\ContinuedFloat`
+8. Células rotacionadas e `diagbox`
+9. Quadros e lista de quadros (ABNT)

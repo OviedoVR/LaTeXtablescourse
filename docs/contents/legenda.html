@@ -8,7 +8,7 @@
 
 <meta name="author" content="Vinícius Oviedo">
 
-<title>Notas em tabelas LaTeX</title>
+<title>Legendas</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -181,12 +181,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Nesta página</h2>
    
   <ul>
-  <li><a href="#contexto" id="toc-contexto" class="nav-link active" data-scroll-target="#contexto">Contexto</a>
-  <ul class="collapse">
-  <li><a href="#texto-após-o-tabular" id="toc-texto-após-o-tabular" class="nav-link" data-scroll-target="#texto-após-o-tabular">1. Texto após o tabular</a></li>
-  <li><a href="#via-multicolumn" id="toc-via-multicolumn" class="nav-link" data-scroll-target="#via-multicolumn">2. Via <code>multicolumn</code></a></li>
-  <li><a href="#pacote-threeparttable" id="toc-pacote-threeparttable" class="nav-link" data-scroll-target="#pacote-threeparttable">3. Pacote <code>threeparttable</code></a></li>
-  </ul></li>
+  <li><a href="#customizando-legendas-com-o-pacote-caption" id="toc-customizando-legendas-com-o-pacote-caption" class="nav-link active" data-scroll-target="#customizando-legendas-com-o-pacote-caption">Customizando legendas com o pacote <code>caption</code></a></li>
   </ul>
 </nav>
     </div>
@@ -195,7 +190,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Notas em tabelas LaTeX</h1>
+<h1 class="title">Legendas</h1>
 </div>
 
 
@@ -218,125 +213,100 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="contexto" class="level2">
-<h2 class="anchored" data-anchor-id="contexto">Contexto</h2>
-<p>Trabalhando com tabelas em LaTeX, usualmente nos encontramos em situações onde se faz necessário adicionar notas de rodapé em uma tabela. Durante minha caminhada com LaTeX, me deparei com três métodos:</p>
-<ol type="1">
-<li>Texto após o tabular;</li>
-<li>Via <code>multicolumn</code>;</li>
-<li>Pacote <code>threeparttable</code>.</li>
-</ol>
-<p>A seguir, veremos como implementar cada método.</p>
-<section id="texto-após-o-tabular" class="level3">
-<h3 class="anchored" data-anchor-id="texto-após-o-tabular">1. Texto após o tabular</h3>
-<p>O método consiste em adicionar uma quebra de linha (<code>\\</code>) após o ambiente tabular. É útil quando a nota irá ocupar apenas uma linha.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode latex code-with-copy"><code class="sourceCode latex"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">\begin</span>{<span class="ex">table</span>}</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co">% centralização, caption e label</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">\begin</span>{<span class="ex">tabular</span>}{}</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="co">% conteúdo da tabela</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="kw">\end</span>{<span class="ex">tabular</span>} <span class="fu">\\</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  NOTA DE RODAPÉ AQUI</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="kw">\end</span>{<span class="ex">table</span>}</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<blockquote class="blockquote">
-<p>Exemplo:</p>
-</blockquote>
-<div class="sourceCode" id="cb2"><pre class="sourceCode latex code-with-copy"><code class="sourceCode latex"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">\begin</span>{<span class="ex">table</span>}[!ht]</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">\centering</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">\caption</span>{Tabela exemplo (método 1)}</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="co">% corpo da tabela</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="kw">\begin</span>{<span class="ex">tabular</span>}{ p{2.5cm} p{2cm} p{2.75cm} }</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">\toprule</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">\textbf</span>{ID ordem} <span class="op">&amp;</span> <span class="fu">\textbf</span>{Itens} <span class="op">&amp;</span> <span class="fu">\textbf</span>{Receita (R<span class="fu">\$</span>)} <span class="fu">\\</span> </span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">\midrule</span></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    001 <span class="op">&amp;</span> 2 <span class="op">&amp;</span> 100 <span class="fu">\\</span></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    002 <span class="op">&amp;</span> 5 <span class="op">&amp;</span> 360 <span class="fu">\\</span></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    003 <span class="op">&amp;</span> 10 <span class="op">&amp;</span> 1225 <span class="fu">\\</span></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">\bottomrule</span></span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>  <span class="kw">\end</span>{<span class="ex">tabular</span>}<span class="fu">\\</span> <span class="fu">\smallskip</span></span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>  {<span class="fu">\small</span> Nota: 30/09/2024 às 19:00.} <span class="co">% nota</span></span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="kw">\end</span>{<span class="ex">table</span>}</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p><img src="assets/nota_1.png" class="img-fluid" style="width:40.0%"></p>
-</section>
-<section id="via-multicolumn" class="level3">
-<h3 class="anchored" data-anchor-id="via-multicolumn">2. Via <code>multicolumn</code></h3>
-<p>Nesse caso, é interessante utilizar quando se se tem uma nota que irá preencher o tamanho inteiro da linha. Também serve para notas de rodapé com maior comprimento textual. Como vantagem, aqui conseguimos trabalhar questões de alinhamento da nota (esquerda, centro, direita).</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode latex code-with-copy"><code class="sourceCode latex"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">% a nota faz parte do conteúdo da tabela, na forma:</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">\multicolumn</span>{número de colunas}{alinhamento}{conteúdo}</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Pontos importantes:</p>
-<p>pontos:</p>
-<ul>
-<li>O número de colunas deve ser igual às colunas contidas na tabela</li>
-<li>O alinhamento pode ser l, c ou r.</li>
-<li>No conteúdo, podemos também adicionar um tamanho de fonte menor.</li>
-<li>Caso necessário podemos especificar a medida da coluna da nota. Exemplo: .</li>
-<li>Se desejar não deixar recuo entre a esquerda da tabela e a nota, basta adicionar <span class="citation" data-cites="">@</span> nas opções de alinhamento.</li>
-</ul>
-<div class="sourceCode" id="cb4"><pre class="sourceCode latex code-with-copy"><code class="sourceCode latex"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co">% Importante adicionar \usepackage{multicol} no preâmbulo</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co">% Tabela 2:</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="kw">\begin</span>{<span class="ex">table</span>}[!ht]</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">\centering</span></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">\caption</span>{Tabela exemplo (método 2)}</span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  <span class="co">% corpo da tabela</span></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>  <span class="kw">\begin</span>{<span class="ex">tabular</span>}{ p{2.5cm} p{2cm} p{4.5cm} }</span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">\toprule</span></span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">\textbf</span>{ID cliente} <span class="op">&amp;</span> <span class="fu">\textbf</span>{Produto} <span class="op">&amp;</span> <span class="fu">\textbf</span>{Quantidade vendida} <span class="fu">\\</span> </span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">\midrule</span></span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>    001 <span class="op">&amp;</span> 2 <span class="op">&amp;</span> 100 <span class="fu">\\</span></span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>    002 <span class="op">&amp;</span> 5 <span class="op">&amp;</span> 360 <span class="fu">\\</span></span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>    003 <span class="op">&amp;</span> 10 <span class="op">&amp;</span> 1225 <span class="fu">\\</span></span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">\bottomrule</span></span>
-<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">\multicolumn</span>{3}{<span class="ch">@{}</span> l}{<span class="fu">\small</span> Fonte: construção do autor.}</span>
-<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>  <span class="kw">\end</span>{<span class="ex">tabular</span>}</span>
-<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a><span class="kw">\end</span>{<span class="ex">table</span>}</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p><img src="assets/nota_2.png" class="img-fluid" style="width:50.0%"></p>
-</section>
-<section id="pacote-threeparttable" class="level3">
-<h3 class="anchored" data-anchor-id="pacote-threeparttable">3. Pacote <code>threeparttable</code></h3>
-<div class="sourceCode" id="cb5"><pre class="sourceCode latex code-with-copy"><code class="sourceCode latex"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="bu">\usepackage</span>[flushleft]{<span class="ex">threeparttable</span>} <span class="co">% flushleft alinha à esquerda</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="callout callout-style-default callout-note callout-titled" title="Documentação threeparttable">
+<section id="customizando-legendas-com-o-pacote-caption" class="level2">
+<h2 class="anchored" data-anchor-id="customizando-legendas-com-o-pacote-caption">Customizando legendas com o pacote <code>caption</code></h2>
+<p>Primeiramente, precisamos carregar o pacote <code>caption</code>. Ele serve tanto para customizar a legenda de tabelas quanto de figuras.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode latex code-with-copy"><code class="sourceCode latex"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="bu">\usepackage</span>{<span class="ex">caption</span>}</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Dessa forma, podemos configurar o estilo das legendas no preâmbulo.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode latex code-with-copy"><code class="sourceCode latex"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">\captionsetup</span>[tables]{</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    # opções</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Seguem algumas opções de customização:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 9%">
+<col style="width: 22%">
+<col style="width: 11%">
+<col style="width: 17%">
+<col style="width: 19%">
+<col style="width: 17%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Label</th>
+<th>Justificação</th>
+<th>Fontes</th>
+<th>Tamanho de fonte</th>
+<th>Font shape/series</th>
+<th>Espaçamento</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>none</td>
+<td>justified</td>
+<td>font</td>
+<td>Large</td>
+<td>up</td>
+<td>singlespacing</td>
+</tr>
+<tr class="even">
+<td>colon</td>
+<td>centering</td>
+<td>label-font</td>
+<td>large</td>
+<td>it</td>
+<td>onehalfspacing</td>
+</tr>
+<tr class="odd">
+<td>space</td>
+<td>raggedright</td>
+<td>textfont</td>
+<td>normalsize</td>
+<td>sl</td>
+<td>doublespacing</td>
+</tr>
+<tr class="even">
+<td>quad</td>
+<td>raggedleft</td>
+<td>color</td>
+<td>small</td>
+<td>sc</td>
+<td>stretch=valor</td>
+</tr>
+<tr class="odd">
+<td>newline</td>
+<td>singlelinecheck=false</td>
+<td></td>
+<td>footnotesize</td>
+<td>md</td>
+<td>width</td>
+</tr>
+<tr class="even">
+<td>endash</td>
+<td></td>
+<td></td>
+<td>scriptsize</td>
+<td>bf</td>
+<td>skip=10pt</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-default callout-note callout-titled" title="Recursos">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Documentação threeparttable
+Recursos
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>A documentação do pacote pode ser encontrada <a href="https://ctan.org/pkg/threeparttable?lang=en">aqui</a>.</p>
+<p>Mais informações neste <a href="https://latex-tutorial.com/caption-customization-latex/">artigo</a> e na <a href="https://ctan.org/pkg/caption?lang=en">documentação</a> do pacote <code>caption</code>.</p>
 </div>
 </div>
-<p>Quanto à hierarquia, vamos precisar ter o pacote threeparttable dentro do ambiente table e antes do tabular. Ainda, ele vai precisar do ambiente tablenotes para armazenar as notas de maneira organizada. A vantagem é que a nota já se ajusta automaticamente ao comprimento da tabela.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode latex code-with-copy"><code class="sourceCode latex"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">% Tabela 3:</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="kw">\begin</span>{<span class="ex">table</span>}[!ht]</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">\centering</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">\caption</span>{Tabela exemplo (método 3)}</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="kw">\begin</span>{<span class="ex">threeparttable</span>}</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    <span class="co">% corpo da tabela</span></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">\begin</span>{<span class="ex">tabular</span>}{ p{2.5cm} p{2cm} p{4.5cm} }</span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>      <span class="fu">\toprule</span></span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>      <span class="fu">\textbf</span>{ID cliente} <span class="op">&amp;</span> <span class="fu">\textbf</span>{Produto} <span class="op">&amp;</span> <span class="fu">\textbf</span>{Quantidade vendida} <span class="fu">\\</span> </span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>      <span class="fu">\midrule</span></span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>      001<span class="fu">\tnote</span>{a} <span class="op">&amp;</span> 2 <span class="op">&amp;</span> 100 <span class="fu">\\</span></span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>      002 <span class="op">&amp;</span> 5 <span class="op">&amp;</span> 360 <span class="fu">\\</span></span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>      003<span class="fu">\tnote</span>{b} <span class="op">&amp;</span> 10 <span class="op">&amp;</span> 1225 <span class="fu">\\</span></span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>      <span class="fu">\bottomrule</span></span>
-<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>    <span class="kw">\end</span>{<span class="ex">tabular</span>}</span>
-<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>    <span class="co">% Notas</span></span>
-<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>    <span class="kw">\begin</span>{<span class="ex">tablenotes</span>}</span>
-<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>      <span class="fu">\item</span>[a] {<span class="fu">\small</span> Recorrente}</span>
-<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>      <span class="fu">\item</span>[b] {<span class="fu">\small</span> Em estado de churn}</span>
-<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>      <span class="fu">\item</span>[~] {<span class="fu">\small</span> Nam dui ligula, fringilla a, euismod sodales, sollicitudin vel, wisi. Morbi auctor lorem non justo. Nam lacus libero, pretium at, lobortis vitae, ultricies et, tellus.}</span>
-<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>    <span class="kw">\end</span>{<span class="ex">tablenotes</span>}</span>
-<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>    <span class="co">%</span></span>
-<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>  <span class="kw">\end</span>{<span class="ex">threeparttable</span>}</span>
-<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a><span class="kw">\end</span>{<span class="ex">table</span>}</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p><img src="assets/nota_3.png" class="img-fluid" style="width:50.0%"></p>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->

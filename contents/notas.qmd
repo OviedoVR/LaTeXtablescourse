@@ -51,7 +51,7 @@ a nota irá ocupar apenas uma linha.
 \end{table}
 ```
 
-![](C:\Users\vinic\Desktop\LaTeXtablescourse\assets\nota_1.png){width=40%}
+![](assets/nota_1.png){width=40%}
 
 
 ### 2. Via `multicolumn`
@@ -97,7 +97,7 @@ Pontos importantes:
 \end{table}
 ```
 
-![](C:\Users\vinic\Desktop\LaTeXtablescourse\assets\nota_2.png){width=50%}
+![](assets/nota_2.png){width=50%}
 
 
 ### 3. Pacote `threeparttable`
@@ -143,4 +143,4 @@ organizada. A vantagem é que a nota já se ajusta automaticamente ao compriment
 \end{table}
 ```
 
-![](C:\Users\vinic\Desktop\LaTeXtablescourse\assets\nota_3.png){width=50%}
+![](assets/nota_3.png){width=50%}

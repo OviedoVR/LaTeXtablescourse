@@ -1,0 +1,39 @@
+---
+title: "Legendas"
+author: "Vinícius Oviedo"
+lang: pt-br
+toc: true
+---
+
+## Customizando legendas com o pacote `caption`
+
+Primeiramente, precisamos carregar o pacote `caption`. Ele serve
+tanto para customizar a legenda de tabelas quanto de figuras.
+
+```LaTeX
+\usepackage{caption}
+```
+
+Dessa forma, podemos configurar o estilo das legendas no preâmbulo.
+
+```LaTeX
+\captionsetup[tables]{
+    # opções
+}
+```
+
+Seguem algumas opções de customização:
+
+| Label    | Justificação          | Fontes     | Tamanho de fonte | Font shape/series  | Espaçamento      |
+|----------|-----------------------|------------|------------------|--------------------|------------------|
+| none     | justified             | font       | Large            | up                 | singlespacing    |
+| colon    | centering             | label-font | large            | it                 | onehalfspacing   |
+| space    | raggedright           | textfont   | normalsize       | sl                 | doublespacing    |
+| quad     | raggedleft            | color      | small            | sc                 | stretch=valor    |
+| newline  | singlelinecheck=false |            | footnotesize     | md                 | width            |
+| endash   |                       |            | scriptsize       | bf                 | skip=10pt        |
+
+
+::: {.callout-note title="Recursos"}
+Mais informações neste [artigo](https://latex-tutorial.com/caption-customization-latex/) e na [documentação](https://ctan.org/pkg/caption?lang=en) do pacote `caption`.
+:::

@@ -20,9 +20,9 @@ website:
           text: Comando \parbox      
         - href: contents/notas.qmd
           text: Notas de rodapé
-        - href: contents/rotating.qmd
+        - href: contents/longtables.qmd
           text: Longtables e ContinuedFloat          
-        - href: contents/rotating.qmd
+        - href: contents/legenda.qmd
           text: Customização da legenda
         - href: contents/rotating.qmd
           text: Células rotacionadas e diagbox        

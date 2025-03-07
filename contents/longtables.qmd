@@ -1,10 +1,255 @@
 ---
-title: "Tabelas em múltiplas páginas (longtables)"
+title: "Longtable e ContinuedFloat"
 author: "Vinícius Oviedo"
 lang: pt-br
 toc: true
 ---
 
-## Ferramentas
+## Ambiente `longtable`
 
-Certamente, existem ferramentas que nos auxiliam a otimizar a criação de tabelas em LaTeX. Alguns exemplos são:
+O ambiente `longtable` permite obter uma tabela que é automaticamente quebrada em várias páginas. Para utilizá-lo,
+é preciso especificar:
+
+- O estilo do primeiro cabeçalho
+- O estilo da parte inferior das tabelas
+- O estilo do cabeçalho das páginas adjacentes
+- O esitlo da parte inferior da tabela na última página.
+
+```LaTeX
+\begin{longtable}{ccc}
+\caption{Legenda da tabela}\\
+Estilo e cabeçalho (primeira página)
+\endfirsthead
+Estilo e cabeçalho (demais páginas)
+\endhead
+Estilo da parte inferior (demais páginas)
+\endfoot
+Estilo da parte inferior (última página)
+\endlastfoot
+%
+CONTEÚDO DA TABELA
+```
+\end{longtable}
+
+::: {.callout-note title="Dica"}
+Caso precise, você pode forçar a quebra de página com `pagebreak`.
+:::
+
+
+## ContinuedFloat
+
+Uma das desvantagens das `longtables` é a incompatibilidade com o comando `\resizebox`. Nesse caso,
+é interessante utilizar o `ContinuedFloat`. Assim, você precisa dar uma quebra de página manual 
+na tabela de trabalho. Quanto à utilização, se trata da mesma estrutura de uma tabela
+convencional, mas com o comando `ContinuedFloat` dentro do `table`.
+
+
+```LaTeX
+\documentclass[a4paper,12pt]{article} % classe
+\usepackage[utf8]{inputenc} % codificação
+\usepackage[brazil]{babel} % idioma
+\usepackage[margin=2cm]{geometry} % margens
+\usepackage{times} % fonte
+\usepackage{setspace} % pacote espaçamento
+\onehalfspacing % espaçamento 1.5
+\setlength{\parindent}{0pt} % indentação parágrafos
+\setlength{\parskip}{8pt} % espaçamento entre parágrafos 
+\renewcommand{\arraystretch}{1.5} % espaçamento 1.5 nas tabelas
+\usepackage{lipsum} % texto aleatório
+\usepackage{caption} % pacote base
+
+
+
+\begin{document}
+
+
+\lipsum[1]
+
+\begin{table}[!ht]
+    \centering
+    \caption{Tabela-exemplo.}
+    \begin{tabular}{cc}
+        \hline
+        Coluna 1 & Coluna 2 \\
+        \hline
+        A1 & B1 \\
+        A2 & B2 \\
+        A3 & B3 \\
+        A4 & B4 \\
+        A5 & B5 \\
+        A6 & B6 \\
+        A7 & B7 \\
+        A8 & B8 \\
+        A9 & B9 \\
+        A10 & B10 \\
+        A11 & B11 \\
+        A12 & B12 \\
+        A13 & B13 \\
+        A14 & B14 \\
+        A15 & B15 \\
+        A16 & B16 \\
+        A17 & B17 \\
+        A18 & B18 \\
+        A19 & B19 \\
+        A20 & B20 \\
+        A21 & B21 \\
+        A22 & B22 \\
+        \hline
+    \end{tabular}
+    \label{tab:parte1}
+\end{table}
+
+\clearpage
+
+\begin{table}[!t]
+    \ContinuedFloat
+    \centering
+    \caption{Tabela-exemplo (\emph{continuação}).}
+    \begin{tabular}{cc}
+        \hline
+        Coluna 1 & Coluna 2 \\
+        \hline
+        A23 & B23 \\
+        A24 & B24 \\
+        A25 & B25 \\    
+        A23 & B23 \\
+        A24 & B24 \\
+        A25 & B25 \\    
+        A23 & B23 \\
+        A24 & B24 \\
+        A25 & B25 \\            
+        A23 & B23 \\
+        A24 & B24 \\
+        A25 & B25 \\
+        \hline
+    \end{tabular}
+    \label{tab:parte2}
+\end{table}
+
+\lipsum[2-4]
+
+
+\end{document}
+```
+
+Note que o número da tabela permanece o mesmo.
+
+
+### Gerando `longtables` com Python
+
+Podemos utilizar o método `to_latex()` disponível no `Pandas`, mas com a opção `longtable=True`.
+Vejamos:
+
+```{python}
+%%writefile longtable_data.csv
+Label,Country,Industry
+Product D,Brazil,Healthcare
+Product A,Canada,Healthcare
+Product D,Brazil,Healthcare
+Product D,Spain,Technology
+Product E,Spain,Healthcare
+Product E,Brazil,Healthcare
+Product B,Brazil,Healthcare
+Product A,Brazil,Chemical
+Product B,Brazil,Healthcare
+Product C,Brazil,Healthcare
+Product E,Brazil,Healthcare
+Product B,Brazil,Chemical
+Product B,Brazil,Healthcare
+Product C,Brazil,Healthcare
+Product E,Brazil,Chemical
+Product C,Brazil,Chemical
+Product C,Brazil,Healthcare
+Product C,Canada,Chemical
+Product A,South Africa,Healthcare
+Product D,Brazil,Healthcare
+Product D,South Africa,Healthcare
+Product A,Canada,Technology
+Product A,Brazil,Chemical
+Product C,Brazil,Healthcare
+Product C,Brazil,Technology
+Product A,Brazil,Finance
+Product A,Brazil,Finance
+Product E,South Africa,Finance
+Product A,South Africa,Chemical
+Product C,Canada,Healthcare
+Product C,Brazil,Finance
+Product C,Brazil,Chemical
+Product A,Brazil,Finance
+Product B,Brazil,Healthcare
+Product C,South Africa,Healthcare
+```
+
+```{python}
+# biblioteca:
+import pandas as pd
+
+# lendo os dados:
+dados = pd.read_csv('longtable_data.csv')
+# resultado (5 primeiras linhas):
+dados.head()
+```
+
+```python
+dados.to_latex(index=False, longtable=True, caption='Legenda da longtable', label='tab:longtable')
+```
+
+Isso produz a saída:
+
+```LaTeX
+\begin{longtable}{lll}
+\caption{Legenda da longtable} \label{tab:longtable} \\
+\toprule
+Label & Country & Industry \\
+\midrule
+\endfirsthead
+\caption[]{Legenda da longtable} \\
+\toprule
+Label & Country & Industry \\
+\midrule
+\endhead
+\midrule
+\multicolumn{3}{r}{Continued on next page} \\
+\midrule
+\endfoot
+\bottomrule
+\endlastfoot
+Product D & Brazil & Healthcare \\
+Product A & Canada & Healthcare \\
+Product D & Brazil & Healthcare \\
+Product D & Spain & Technology \\
+Product E & Spain & Healthcare \\
+Product E & Brazil & Healthcare \\
+Product B & Brazil & Healthcare \\
+Product A & Brazil & Chemical \\
+Product B & Brazil & Healthcare \\
+Product C & Brazil & Healthcare \\
+Product E & Brazil & Healthcare \\
+Product B & Brazil & Chemical \\
+Product B & Brazil & Healthcare \\
+Product C & Brazil & Healthcare \\
+Product E & Brazil & Chemical \\
+Product C & Brazil & Chemical \\
+Product C & Brazil & Healthcare \\
+Product C & Canada & Chemical \\
+Product A & South Africa & Healthcare \\
+Product D & Brazil & Healthcare \\
+Product D & South Africa & Healthcare \\
+Product A & Canada & Technology \\
+Product A & Brazil & Chemical \\
+Product C & Brazil & Healthcare \\
+Product C & Brazil & Technology \\
+Product A & Brazil & Finance \\
+Product A & Brazil & Finance \\
+Product E & South Africa & Finance \\
+Product A & South Africa & Chemical \\
+Product C & Canada & Healthcare \\
+Product C & Brazil & Finance \\
+Product C & Brazil & Chemical \\
+Product A & Brazil & Finance \\
+Product B & Brazil & Healthcare \\
+Product C & South Africa & Healthcare \\
+\end{longtable}
+```
+
+Agora, você pode ajustar como bem desejar.

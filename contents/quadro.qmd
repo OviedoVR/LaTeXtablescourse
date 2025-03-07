@@ -127,4 +127,4 @@ Agora podemos utilizar o quadro da seguinte maneira.
 \end{document}
 ```
 
-![](C:\Users\vinic\Desktop\LaTeXtablescourse\assets\quadros.png){width=60%}
+![](assets/quadros.png){width=60%}

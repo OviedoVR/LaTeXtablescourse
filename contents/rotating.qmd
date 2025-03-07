@@ -33,7 +33,7 @@ Assim, o exemplo abaixo retorna a saída a seguir.
 \end{table}
 ```
 
-![](C:\Users\vinic\Desktop\LaTeXtablescourse\assets\rotating.png){width=40%}
+![](assets/rotating.png){width=40%}
 
 
 ## Comando `diagbox`
@@ -63,4 +63,4 @@ Nada melhor que um exemplo, vejamos a seguir.
 \end{table}
 ```
 
-![](C:\Users\vinic\Desktop\LaTeXtablescourse\assets\diagbox.png){width=40%}
+![](assets/diagbox.png){width=40%}

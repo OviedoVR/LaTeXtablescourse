@@ -34,7 +34,7 @@ Assim, temos genericamente:
 
 Por exemplo, caso se queira produzir a tabela abaixo com LaTeX,
 
-![](C:\Users\vinic\Documents\LaTeX-tables\Conteudo-LaTeX-tables\assets\ligas-e-densidade.png){width=40%}
+![](assets/ligas-e-densidade.png){width=40%}
 
 Utilizamos o seguinte bloco de código:
 
@@ -148,7 +148,7 @@ Como sintaxe, temos:
 \end{document}
 ```
 
-![](C:\Users\vinic\Documents\LaTeX-tables\Conteudo-LaTeX-tables\assets\merged.png){width=70%}
+![](assets/merged.png){width=70%}
 
 
 ::: {.callout-note title="Recurso online (Overleaf)"}
