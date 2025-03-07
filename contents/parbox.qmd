@@ -7,7 +7,7 @@ toc: true
 
 ## Comando `parbox`
 
-Muitas vezes, podem surgir dificuldades ao ajustar uma célula mesclada - principalmente quando se utiliza o `multirow`. Nessas sitauções,
+Muitas vezes, podem surgir dificuldades ao ajustar uma célula mesclada - principalmente quando se utiliza o `multirow`. Nessas situações,
 podemos "enjanbrar" com o comando `parbox`. Convenhamos, não é uma solução elegante, mas vai resolver muitos problemas. A sintaxe do
 comando é:
 
