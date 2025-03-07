@@ -17,7 +17,7 @@ tanto para customizar a legenda de tabelas quanto de figuras.
 Dessa forma, podemos configurar o estilo das legendas no preâmbulo.
 
 ```LaTeX
-\captionsetup[tables]{
+\captionsetup[table]{
     # opções
 }
 ```
